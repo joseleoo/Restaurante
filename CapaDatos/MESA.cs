@@ -12,18 +12,16 @@ namespace CapaDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class MESERO
+    public partial class MESA
     {
-        public MESERO()
+        public MESA()
         {
             this.FACTURA = new HashSet<FACTURA>();
         }
     
-        public decimal IDMESERO { get; set; }
-        public string NOMBRES { get; set; }
-        public string APELLIDOS { get; set; }
-        public Nullable<decimal> EDAD { get; set; }
-        public decimal ANTIGUEDAD { get; set; }
+        public decimal NROMESA { get; set; }
+        public string NOMBRE { get; set; }
+        public Nullable<short> RESERVADA { get; set; }
     
         public virtual ICollection<FACTURA> FACTURA { get; set; }
     }

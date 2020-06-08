@@ -1,0 +1,244 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Nuevo Cliente</title>
+    <!--bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!--validations-->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+
+    <script src="../media/js/site.js"></script>
+    <link rel="stylesheet" href="../media/css/site.css">
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+        <a id="navbar" class="navbar-brand" href="#">Mapa de la página</a>
+        <ul class="nav nav-pills">
+            <li class="nav-item ">
+                <a class="nav-link" href="#newClient">Registrar nuevo cliente</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#location">Tu ubicación</a>
+            </li>
+
+        </ul>
+    </nav>
+
+<!--
+  <form id="formClient" name="formClient" action="../app/models/Client.php" method="post">-->
+        <form id="formClient" name="formClient" action="" method="post">
+        <div class="container">
+
+            <div id="jumppal">
+                <ul id="newClient" class="list-group">
+                    <li class="list-group-item active"> <h1 class="display-2 text-center">Nuevo Cliente</h1></></li>
+                    <li class="list-group-item">
+
+                        <div class="alert alert-success" id="saveSucces" name="saveSucces" style="display:none" role="alert">
+                            ¡Guardado exitosamente!
+                        </div>
+                        <div class="alert alert-danger" style="display:none" role="alert">
+                            ¡Error al guardar!
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+
+                                <div class="input-group-prepend adon">
+                                    <span class="input-group-text " id="labelIdcliente">Id del Cliente *</span>
+                                </div>
+
+                                <input type="number" aria-required="true" aria-invalid="true" class="form-control"
+                                       id="idClient" name="idClient" placeholder="Escriba aquí la identificación de cliente"
+                                       aria-label="Default" aria-describedby="labelIdcliente" data-toggle="tooltip" required>
+
+                            </div>
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">NIF *</span>
+                                </div>
+                                <input type="text" maxlength="15" class="form-control" id="nif" name="nif"
+                                       placeholder="Escriba NIF mínimo de 8 dígitos" data-toggle="tooltip"  required>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelncomercial">Nombre Comercial *</span>
+
+                                </div>
+                                <input type="text" maxlength="250" class="form-control" id="ncomercial" name="ncomercial"
+                                       placeholder="Escriba aquí el nombre comercial" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelrsocial">Razón social *</span>
+
+                                </div>
+                                <input type="text" maxlength="250" class="form-control" id="rsocial" name="rsocial"
+                                       placeholder="Escriba aquí la razón social" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelDir">Dirección</span>
+
+                                </div>
+                                <textarea id="direccion" name="direccion" maxlength="250" class="form-control" aria-label="With textarea"
+                                          placeholder="Dirección"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelPoblacion">Población</span>
+
+                                </div>
+
+                                <input type="text" maxlength="100" class="form-control" id="poblacion" name="poblacion" placeholder="Escriba aquí la población">
+
+                            </div>
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Código Postal</span>
+                                </div>
+                                <input type="text" class="form-control" maxlength="15" id="cpostal" name="cpostal"  placeholder="Escriba aquí el código Postal">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelcpostal">Provincia</span>
+                                </div>
+
+                                <input type="text" maxlength="50" class="form-control" id="provincia" name="provincia" placeholder="Escriba aquí la provincia">
+
+                            </div>
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelpais">País</span>
+                                </div>
+                                <select name="pais" class="form-control" id="pais">
+                                    <option>Seleccione</option>
+
+                                    <option value="1">Colombia</option>
+                                    <option value="2"> España</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labelemail">Email</span>
+                                </div>
+
+                                <input type="email" maxlength="150" class="form-control" id="email" name="email" placeholder="nombre@ejemplo.com">
+
+                            </div>
+                            <div class="col input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="labeltelefono">Teléfono</span>
+                                </div>
+                                <input type="text" maxlength="15" class="form-control" id="telefono" name="telefono" placeholder="Teléfono">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <br>
+                                <button type="submit" data-toggle="tooltip" id="save" class="btn btn-primary">Guardar</button>
+
+                            </div>
+                            <div class="col">
+                                <br>
+                                <button type="button" data-toggle="tooltip" class="btn btn-dark">Cerrar</button>
+                            </div>
+                        </div>
+
+                    </li>
+
+                </ul>
+
+                <br />
+              
+              
+                <ul id="location" class="list-group">
+                    <li class="list-group-item">Tu ubicación</li>
+                    <li class="list-group-item">
+
+                        <div id="map"></div>
+                        <script>
+                            // Note: This example requires that you consent to location sharing when
+                            // prompted by your browser. If you see the error "The Geolocation service
+                            // failed.", it means you probably did not give permission for the browser to
+                            // locate you.
+                            var map, infoWindow;
+                            function initMap() {
+                                map = new google.maps.Map(document.getElementById('map'), {
+                                    center: { lat: -34.397, lng: 150.644 },
+                                    zoom: 6
+                                });
+                                infoWindow = new google.maps.InfoWindow;
+
+                                // Try HTML5 geolocation.
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(function (position) {
+                                        var pos = {
+                                            lat: position.coords.latitude,
+                                            lng: position.coords.longitude
+                                        };
+
+                                        infoWindow.setPosition(pos);
+                                        infoWindow.setContent('Location found.');
+                                        infoWindow.open(map);
+                                        map.setCenter(pos);
+                                    }, function () {
+                                        handleLocationError(true, infoWindow, map.getCenter());
+                                    });
+                                } else {
+                                    // Browser doesn't support Geolocation
+                                    handleLocationError(false, infoWindow, map.getCenter());
+                                }
+                            }
+
+                            function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                                infoWindow.setPosition(pos);
+                                infoWindow.setContent(browserHasGeolocation ?
+                                    'Error: The Geolocation service failed.' :
+                                    'Error: Your browser doesn\'t support geolocation.');
+                                infoWindow.open(map);
+                            }
+                        </script>
+                        <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4KOHl_2QoZfdXRAQ2jiAsMC1WJ-joBdg&callback=initMap">
+                        </script>
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+    </form>
+</body>
+</html>
+
+<script>
+</script>
+

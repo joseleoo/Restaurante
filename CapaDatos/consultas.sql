@@ -91,4 +91,8 @@ ADD CONSTRAINT Mesa_fk
 ADD CONSTRAINT IdMesero_fk
   FOREIGN KEY (IdMesero)
   REFERENCES IMesero(IdMesero);
+  
+  insert into cliente (identificacion,nombres,apellidos) values(1234,'Diego','Programador')
+    insert into cliente (identificacion,nombres,apellidos) values(1234,'juana','Diseñadora')
+	insert into cliente (identificacion,nombres,apellidos) values(1234,'Mariana','Administradora')
 

@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RestauranteModelo.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="IDENTIFICACION" />
+          </Key>
+          <Property Name="IDENTIFICACION" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="APELLIDOS" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar2" MaxLength="100" />
+          <Property Name="TELEFONO" Type="varchar2" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DETALLEXFACTURA">
+          <Key>
+            <PropertyRef Name="IDDETALLEXFACTURA" />
+          </Key>
+          <Property Name="IDDETALLEXFACTURA" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NROFACTURA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDSUPERVISOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PLATO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VALOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="NROFACTURA" />
+          </Key>
+          <Property Name="NROFACTURA" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCLIENTE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NROMESA" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDMESERO" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MESA">
+          <Key>
+            <PropertyRef Name="NROMESA" />
+          </Key>
+          <Property Name="NROMESA" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="RESERVADA" Type="number" Precision="1" Scale="0" />
+        </EntityType>
+        <EntityType Name="MESERO">
+          <Key>
+            <PropertyRef Name="IDMESERO" />
+          </Key>
+          <Property Name="IDMESERO" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="APELLIDOS" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="EDAD" Type="number" Precision="38" Scale="0" />
+          <Property Name="ANTIGUEDAD" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PLATO">
+          <Key>
+            <PropertyRef Name="IDPLATO" />
+          </Key>
+          <Property Name="IDPLATO" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="VALOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SUPERVISOR">
+          <Key>
+            <PropertyRef Name="IDSUPERVISOR" />
+          </Key>
+          <Property Name="IDSUPERVISOR" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRES" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="APELLIDOS" Type="varchar2" MaxLength="100" Nullable="false" />
+          <Property Name="ANTIGUEDAD" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <Association Name="FACTURA_FK">
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="NROFACTURA" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="NROFACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDCLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IDENTIFICACION" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="IDCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMESERO_FK">
+          <End Role="MESERO" Type="Self.MESERO" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESERO">
+              <PropertyRef Name="IDMESERO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="IDMESERO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MESA_FK">
+          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="NROMESA" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="NROMESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PLATO_FK">
+          <End Role="PLATO" Type="Self.PLATO" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLATO">
+              <PropertyRef Name="IDPLATO" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="PLATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUPERVISOR_FK">
+          <End Role="SUPERVISOR" Type="Self.SUPERVISOR" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUPERVISOR">
+              <PropertyRef Name="IDSUPERVISOR" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="IDSUPERVISOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestauranteModeloStoreContainer">
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="DETALLEXFACTURA" EntityType="Self.DETALLEXFACTURA" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="FACTURA" EntityType="Self.FACTURA" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="MESA" EntityType="Self.MESA" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="MESERO" EntityType="Self.MESERO" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="PLATO" EntityType="Self.PLATO" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="SUPERVISOR" EntityType="Self.SUPERVISOR" Schema="SYSTEM" store:Type="Tables" />
+          <AssociationSet Name="FACTURA_FK" Association="Self.FACTURA_FK">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="IDCLIENTE_FK" Association="Self.IDCLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="IDMESERO_FK" Association="Self.IDMESERO_FK">
+            <End Role="MESERO" EntitySet="MESERO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="MESA_FK" Association="Self.MESA_FK">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="PLATO_FK" Association="Self.PLATO_FK">
+            <End Role="PLATO" EntitySet="PLATO" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="SUPERVISOR_FK" Association="Self.SUPERVISOR_FK">
+            <End Role="SUPERVISOR" EntitySet="SUPERVISOR" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestauranteModelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="IDENTIFICACION" />
+          </Key>
+          <Property Name="IDENTIFICACION" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.IDCLIENTE_FK" FromRole="CLIENTE" ToRole="FACTURA" />
+        </EntityType>
+        <EntityType Name="DETALLEXFACTURA">
+          <Key>
+            <PropertyRef Name="IDDETALLEXFACTURA" />
+          </Key>
+          <Property Name="IDDETALLEXFACTURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NROFACTURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDSUPERVISOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PLATO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="VALOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.FACTURA_FK" FromRole="DETALLEXFACTURA" ToRole="FACTURA" />
+          <NavigationProperty Name="PLATO1" Relationship="Self.PLATO_FK" FromRole="DETALLEXFACTURA" ToRole="PLATO" />
+          <NavigationProperty Name="SUPERVISOR" Relationship="Self.SUPERVISOR_FK" FromRole="DETALLEXFACTURA" ToRole="SUPERVISOR" />
+        </EntityType>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="NROFACTURA" />
+          </Key>
+          <Property Name="NROFACTURA" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCLIENTE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="NROMESA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IDMESERO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.IDCLIENTE_FK" FromRole="FACTURA" ToRole="CLIENTE" />
+          <NavigationProperty Name="DETALLEXFACTURA" Relationship="Self.FACTURA_FK" FromRole="FACTURA" ToRole="DETALLEXFACTURA" />
+          <NavigationProperty Name="MESERO" Relationship="Self.IDMESERO_FK" FromRole="FACTURA" ToRole="MESERO" />
+          <NavigationProperty Name="MESA" Relationship="Self.MESA_FK" FromRole="FACTURA" ToRole="MESA" />
+        </EntityType>
+        <EntityType Name="MESA">
+          <Key>
+            <PropertyRef Name="NROMESA" />
+          </Key>
+          <Property Name="NROMESA" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RESERVADA" Type="Int16" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.MESA_FK" FromRole="MESA" ToRole="FACTURA" />
+        </EntityType>
+        <EntityType Name="MESERO">
+          <Key>
+            <PropertyRef Name="IDMESERO" />
+          </Key>
+          <Property Name="IDMESERO" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EDAD" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ANTIGUEDAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="FACTURA" Relationship="Self.IDMESERO_FK" FromRole="MESERO" ToRole="FACTURA" />
+        </EntityType>
+        <EntityType Name="PLATO">
+          <Key>
+            <PropertyRef Name="IDPLATO" />
+          </Key>
+          <Property Name="IDPLATO" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VALOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <NavigationProperty Name="DETALLEXFACTURA" Relationship="Self.PLATO_FK" FromRole="PLATO" ToRole="DETALLEXFACTURA" />
+        </EntityType>
+        <EntityType Name="SUPERVISOR">
+          <Key>
+            <PropertyRef Name="IDSUPERVISOR" />
+          </Key>
+          <Property Name="IDSUPERVISOR" Type="Decimal" Precision="38" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ANTIGUEDAD" Type="Decimal" Precision="38" Scale="0" />
+          <NavigationProperty Name="DETALLEXFACTURA" Relationship="Self.SUPERVISOR_FK" FromRole="SUPERVISOR" ToRole="DETALLEXFACTURA" />
+        </EntityType>
+        <Association Name="IDCLIENTE_FK">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="IDENTIFICACION" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="IDCLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FACTURA_FK">
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURA">
+              <PropertyRef Name="NROFACTURA" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="NROFACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PLATO_FK">
+          <End Role="PLATO" Type="Self.PLATO" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLATO">
+              <PropertyRef Name="IDPLATO" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="PLATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SUPERVISOR_FK">
+          <End Role="SUPERVISOR" Type="Self.SUPERVISOR" Multiplicity="1" />
+          <End Role="DETALLEXFACTURA" Type="Self.DETALLEXFACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SUPERVISOR">
+              <PropertyRef Name="IDSUPERVISOR" />
+            </Principal>
+            <Dependent Role="DETALLEXFACTURA">
+              <PropertyRef Name="IDSUPERVISOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IDMESERO_FK">
+          <End Role="MESERO" Type="Self.MESERO" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESERO">
+              <PropertyRef Name="IDMESERO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="IDMESERO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MESA_FK">
+          <End Role="MESA" Type="Self.MESA" Multiplicity="1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MESA">
+              <PropertyRef Name="NROMESA" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="NROMESA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+          <EntitySet Name="DETALLEXFACTURA" EntityType="Self.DETALLEXFACTURA" />
+          <EntitySet Name="FACTURA" EntityType="Self.FACTURA" />
+          <EntitySet Name="MESA" EntityType="Self.MESA" />
+          <EntitySet Name="MESERO" EntityType="Self.MESERO" />
+          <EntitySet Name="PLATO" EntityType="Self.PLATO" />
+          <EntitySet Name="SUPERVISOR" EntityType="Self.SUPERVISOR" />
+          <AssociationSet Name="IDCLIENTE_FK" Association="Self.IDCLIENTE_FK">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FACTURA_FK" Association="Self.FACTURA_FK">
+            <End Role="FACTURA" EntitySet="FACTURA" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="PLATO_FK" Association="Self.PLATO_FK">
+            <End Role="PLATO" EntitySet="PLATO" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="SUPERVISOR_FK" Association="Self.SUPERVISOR_FK">
+            <End Role="SUPERVISOR" EntitySet="SUPERVISOR" />
+            <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="IDMESERO_FK" Association="Self.IDMESERO_FK">
+            <End Role="MESERO" EntitySet="MESERO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="MESA_FK" Association="Self.MESA_FK">
+            <End Role="MESA" EntitySet="MESA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestauranteModeloStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CLIENTE">
+            <EntityTypeMapping TypeName="RestauranteModelo.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="IDENTIFICACION" ColumnName="IDENTIFICACION" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLEXFACTURA">
+            <EntityTypeMapping TypeName="RestauranteModelo.DETALLEXFACTURA">
+              <MappingFragment StoreEntitySet="DETALLEXFACTURA">
+                <ScalarProperty Name="IDDETALLEXFACTURA" ColumnName="IDDETALLEXFACTURA" />
+                <ScalarProperty Name="NROFACTURA" ColumnName="NROFACTURA" />
+                <ScalarProperty Name="IDSUPERVISOR" ColumnName="IDSUPERVISOR" />
+                <ScalarProperty Name="PLATO" ColumnName="PLATO" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURA">
+            <EntityTypeMapping TypeName="RestauranteModelo.FACTURA">
+              <MappingFragment StoreEntitySet="FACTURA">
+                <ScalarProperty Name="NROFACTURA" ColumnName="NROFACTURA" />
+                <ScalarProperty Name="IDCLIENTE" ColumnName="IDCLIENTE" />
+                <ScalarProperty Name="NROMESA" ColumnName="NROMESA" />
+                <ScalarProperty Name="IDMESERO" ColumnName="IDMESERO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESA">
+            <EntityTypeMapping TypeName="RestauranteModelo.MESA">
+              <MappingFragment StoreEntitySet="MESA">
+                <ScalarProperty Name="NROMESA" ColumnName="NROMESA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="RESERVADA" ColumnName="RESERVADA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESERO">
+            <EntityTypeMapping TypeName="RestauranteModelo.MESERO">
+              <MappingFragment StoreEntitySet="MESERO">
+                <ScalarProperty Name="IDMESERO" ColumnName="IDMESERO" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="EDAD" ColumnName="EDAD" />
+                <ScalarProperty Name="ANTIGUEDAD" ColumnName="ANTIGUEDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLATO">
+            <EntityTypeMapping TypeName="RestauranteModelo.PLATO">
+              <MappingFragment StoreEntitySet="PLATO">
+                <ScalarProperty Name="IDPLATO" ColumnName="IDPLATO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SUPERVISOR">
+            <EntityTypeMapping TypeName="RestauranteModelo.SUPERVISOR">
+              <MappingFragment StoreEntitySet="SUPERVISOR">
+                <ScalarProperty Name="IDSUPERVISOR" ColumnName="IDSUPERVISOR" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="ANTIGUEDAD" ColumnName="ANTIGUEDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
