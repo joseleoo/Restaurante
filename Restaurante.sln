@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurante", "Restaurante\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{739F44EE-AC31-4B31-8370-EAABC3BE5B90}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaLogica", "CapaLogica\CapaLogica.csproj", "{61592917-C87D-4EF7-A6DB-AC6E928CAFC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{739F44EE-AC31-4B31-8370-EAABC3BE5B90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{739F44EE-AC31-4B31-8370-EAABC3BE5B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{739F44EE-AC31-4B31-8370-EAABC3BE5B90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61592917-C87D-4EF7-A6DB-AC6E928CAFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61592917-C87D-4EF7-A6DB-AC6E928CAFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61592917-C87D-4EF7-A6DB-AC6E928CAFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61592917-C87D-4EF7-A6DB-AC6E928CAFC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
