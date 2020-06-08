@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Factura	</title>
+    <title>Indicadores	</title>
     <!--bootstrap-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -52,7 +52,7 @@
                 <br />
 
                 <ul id="newClient" class="list-group">
-                    <li class="list-group-item active"> <h1 class="display-5 text-center">Registrar Factura</h1></></li>
+                    <li class="list-group-item active"> <h1 class="display-5 text-center">Indicadores</h1></></li>
                     <li class="list-group-item">
 
 
@@ -60,7 +60,7 @@
                             <div class="col input-group mb-3">
 
                                 <div class="input-group-prepend adon">
-                                    <span class="input-group-text " id="labelIdcliente">Cliente *</span>
+                                    <span class="input-group-text " id="labelIdcliente">Fecha Inicial *</span>
                                 </div>
 
                                 <input type="number" aria-required="true" aria-invalid="true" class="form-control"
@@ -70,38 +70,19 @@
                             </div>
                             <div class="col input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Mesero *</span>
+                                    <span class="input-group-text" id="inputGroup-sizing-default">Fecha Final *</span>
                                 </div>
                                 <input type="text" maxlength="15" class="form-control" id="nif" name="nif"
                                        placeholder="Escriba aquí la identificación del mesero" data-toggle="tooltip" required>
 
                             </div>
+							
+							
                         </div>
                         <div class="row">
-                            <div class="col input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="labelncomercial">Plato *</span>
-
-                                </div>
-                                <input type="text" maxlength="250" class="form-control" id="ncomercial" name="ncomercial"
-                                       placeholder="Escriba aquí el nombre comercial" required>
-                            </div>
-							<div class="col input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Cantidad *</span>
-                                </div>
-                                <input type="text" maxlength="15" class="form-control" id="nif" name="nif"
-                                       placeholder="Escriba aquí la identificación del mesero" data-toggle="tooltip" required>
-
-                            </div>
-							<div class="col input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">Nro Mesa *</span>
-                                </div>
-                                <input type="text" maxlength="15" class="form-control" id="nif" name="nif"
-                                       placeholder="Escriba aquí la identificación del mesero" data-toggle="tooltip" required>
-
-                            </div >
+						
+				
+						
 							     <div class="col input-group mb-3">
                                 <br>
                                 <button type="submit" data-toggle="tooltip" id="save" class="btn btn-primary">Añadir a la factura</button>

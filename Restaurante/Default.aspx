@@ -11,6 +11,8 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Getting started</h2>
+            <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+            <asp:Button ID="Button1" OnClick="Button1_Click" runat="server" Text="Button" />
             <p>
                 ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
             A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
