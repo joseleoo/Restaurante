@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="97b65c7c57bf4c02b59368b476b1dcf9" Name="Diagram1" ZoomLevel="114">
+        <EntityTypeShape EntityType="RestauranteModelo.CLIENTE" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.DETALLEXFACTURA" Width="1.875" PointX="5.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.FACTURA" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.MESA" Width="1.5" PointX="0.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.MESERO" Width="1.5" PointX="2.375" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.PLATO" Width="1.5" PointX="5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestauranteModelo.SUPERVISOR" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="RestauranteModelo.IDCLIENTE_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="RestauranteModelo.FACTURA_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="RestauranteModelo.PLATO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="RestauranteModelo.SUPERVISOR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="RestauranteModelo.IDMESERO_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="RestauranteModelo.MESA_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

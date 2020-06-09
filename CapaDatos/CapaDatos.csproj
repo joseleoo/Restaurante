@@ -31,8 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <HintPath>..\packages\Oracle.ManagedDataAccess.19.7.0\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,8 +51,71 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CLIENTE.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Conexion.cs" />
+    <Compile Include="DETALLEXFACTURA.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FACTURA.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MESA.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MESERO.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PLATO.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestauranteModelo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RestauranteModelo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestauranteModelo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestauranteModelo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RestauranteModelo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SUPERVISOR.cs">
+      <DependentUpon>RestauranteModelo.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="consultas.sql" />
+    <Content Include="RestauranteModelo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RestauranteModelo.Context.cs</LastGenOutput>
+      <DependentUpon>RestauranteModelo.edmx</DependentUpon>
+    </Content>
+    <Content Include="RestauranteModelo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RestauranteModelo.edmx</DependentUpon>
+      <LastGenOutput>RestauranteModelo.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <EntityDeploy Include="RestauranteModelo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RestauranteModelo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RestauranteModelo.edmx.diagram">
+      <DependentUpon>RestauranteModelo.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
