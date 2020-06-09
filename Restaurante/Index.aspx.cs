@@ -21,6 +21,8 @@ namespace Restaurante
         {
             if (!IsPostBack)
             {
+                //ScriptManager.RegisterStartupScript(
+                //        this, GetType(), "showalert", "alert('NUEVO: -Fix problem al cerrar compra. -Diseño. -Formulario de indicadores');", true);
                 using (Entities entities = new Entities())
                 {
                     var platosList = (from p in entities.PLATO
@@ -188,6 +190,7 @@ namespace Restaurante
             dropMesa.SelectedValue = "0";
             GridView1.DataSource = null;
             GridView1.DataBind();
+            Session["Productos"] = null;
 
         }
 
@@ -238,6 +241,7 @@ namespace Restaurante
 
                     ScriptManager.RegisterStartupScript
                             (this, GetType(), "showalert", "alert('¡DATOS GUARDADOS CON EXITO!');", true);
+                    limpiaControles();
                 }
                 catch (Exception)
                 {
@@ -253,6 +257,19 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript
                     (this, GetType(), "showalert", "alert('Nada para guardar');", true);
             }
+        }
+
+        private void limpiaControles() {
+            txtCantidad.Text = "";
+            dropPlato.SelectedValue = "0";
+            dropMesa.SelectedValue = "0";
+            Session["Productos"] = dtVenta;
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+            txtCliente.Text = "";
+            txtNombreCliente.Text = "";
+            txtMesero.Text = "";
+            txtNombreMesero.Text = "";
         }
     }
 }

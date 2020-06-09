@@ -1,0 +1,49 @@
+.error {
+    font-style: italic;
+    color: rgba(219, 129, 129, 1.00);
+    border-radius: .25rem !important;
+    border: 1px solid !important;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(219, 129, 129, 0.25)
+}
+
+label.error {
+    border: none !important;
+    background-color: unset;
+    box-shadow: none;
+    background: url("../images/1x/incorrect.png") no-repeat !important;
+    padding-left: 16px;
+    margin-left: .3em
+}
+.valid {
+    border-radius: .25rem !important;
+}
+label.valid {
+    border-radius: .25rem !important;
+    background: url("../images/1x/correct.png") no-repeat !important;
+    display: block;
+    width: 16px;
+    height: 16px
+}
+
+.input-group-text {
+    /*background-color: #d6d8d9;
+    color: darkslategrey;*/
+}
+
+#map {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}
+
+#jumppal {
+    /*height: 700px;
+    overflow-y: scroll;
+    position: relative;*/
+}
+
+body {
+    position: relative;
+    margin-top: 80px;
+}
