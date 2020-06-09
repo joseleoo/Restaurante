@@ -51,6 +51,15 @@ namespace Restaurante
         protected global::System.Web.UI.WebControls.TextBox txtCliente;
 
         /// <summary>
+        /// Control RequiredFieldValidator1txtCliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1txtCliente;
+
+        /// <summary>
         /// Control txtCliente_FilteredTextBoxExtender.
         /// </summary>
         /// <remarks>

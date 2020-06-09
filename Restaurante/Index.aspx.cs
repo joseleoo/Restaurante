@@ -16,7 +16,7 @@ namespace Restaurante
     {
 
         public DataSet dtVenta = new DataSet();
-        public int conta = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -59,52 +59,61 @@ namespace Restaurante
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var idPlato = Convert.ToInt32(dropPlato.SelectedValue);
-            CapaDatos.Entities entities = new Entities();
-            var plato = (from p in entities.PLATO
-                         where p.IDPLATO == idPlato
-                         select new { p.VALOR, p.NOMBRE, p.IDPLATO }).ToList();
-            //GridView1.DataSource = query;
-            //GridView1.DataBind();
-
-
-            DataTable table = new DataTable("Productos");
-
-            table.Columns.Add(new DataColumn("idPlato"));
-            table.Columns.Add(new DataColumn("Plato"));
-            table.Columns.Add(new DataColumn("Cantidad"));
-            table.Columns.Add(new DataColumn("Valor"));
-            table.Columns.Add(new DataColumn("Total"));
-
-            if (dtVenta.Tables.Count == 0)
+            if (dropPlato.SelectedValue != "0" && dropMesa.SelectedValue != "0" && !string.IsNullOrEmpty(txtCliente.Text.Trim()) && !string.IsNullOrEmpty(txtMesero.Text.Trim()))
             {
-                dtVenta.Tables.Add(table);
-            }
-            DataRow dtrPro = dtVenta.Tables["Productos"].NewRow();
-        
-            dtrPro["idPlato"] = plato[0].IDPLATO;
-            dtrPro["Plato"] = plato[0].NOMBRE;
-            dtrPro["Cantidad"] = txtCantidad.Text;
-            dtrPro["Valor"] = plato[0].VALOR;
-            dtrPro["Total"] = Convert.ToDecimal(txtCantidad.Text) * plato[0].VALOR;
 
-            //System.Data.DataSet dtVentaSesion = Session["Productos"] as System.Data.DataSet;
-            if (Session["Productos"] != null)
-            {
-                dtVenta = Session["Productos"] as DataSet;
-           
-            }
-        
+                var idPlato = Convert.ToInt32(dropPlato.SelectedValue);
+                CapaDatos.Entities entities = new Entities();
+                var plato = (from p in entities.PLATO
+                             where p.IDPLATO == idPlato
+                             select new { p.VALOR, p.NOMBRE, p.IDPLATO }).ToList();
+                //GridView1.DataSource = query;
+                //GridView1.DataBind();
+
+
+                DataTable table = new DataTable("Productos");
+
+                table.Columns.Add(new DataColumn("idPlato"));
+                table.Columns.Add(new DataColumn("Plato"));
+                table.Columns.Add(new DataColumn("Cantidad"));
+                table.Columns.Add(new DataColumn("Valor"));
+                table.Columns.Add(new DataColumn("Total"));
+
+                if (dtVenta.Tables.Count == 0)
+                {
+                    dtVenta.Tables.Add(table);
+                }
+                DataRow dtrPro = dtVenta.Tables["Productos"].NewRow();
+
+                dtrPro["idPlato"] = plato[0].IDPLATO;
+                dtrPro["Plato"] = plato[0].NOMBRE;
+                dtrPro["Cantidad"] = txtCantidad.Text;
+                dtrPro["Valor"] = plato[0].VALOR;
+                dtrPro["Total"] = Convert.ToDecimal(txtCantidad.Text) * plato[0].VALOR;
+
+                //System.Data.DataSet dtVentaSesion = Session["Productos"] as System.Data.DataSet;
+                if (Session["Productos"] != null)
+                {
+                    dtVenta = Session["Productos"] as DataSet;
+
+                }
+
                 dtVenta.Tables["Productos"].Rows.Add(dtrPro.ItemArray);
 
 
-            GridView1.DataSource = dtVenta.Tables[0];
-            GridView1.DataBind();
-            txtCantidad.Text = "";
-            dropPlato.SelectedValue = "0";
-            dropMesa.SelectedValue = "0";
-            Session["Productos"] = dtVenta;
+                GridView1.DataSource = dtVenta.Tables[0];
+                GridView1.DataBind();
+                txtCantidad.Text = "";
+                dropPlato.SelectedValue = "0";
+                dropMesa.SelectedValue = "0";
+                Session["Productos"] = dtVenta;
 
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(
+                                        this, GetType(), "showalert", "alert('Faltan datos por selecionar: cantidad, mesero o plato');", true);
+            }
         }
 
         protected void txtCliente_TextChanged(object sender, EventArgs e)
@@ -126,6 +135,7 @@ namespace Restaurante
                     ScriptManager.RegisterStartupScript(
                         this, GetType(), "showalert", "alert('No existe el usuario con esa identificación');", true);
                     txtNombreCliente.Text = "";
+                    txtCliente.Text = "";
                 }
             }
             else
@@ -133,6 +143,7 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript
                     (this, GetType(), "showalert", "alert('Hubo inconvenientes al buscar el cliente. Por favor intente de nuevo');", true);
                 txtNombreCliente.Text = "";
+                txtCliente.Text = "";
             }
 
         }
@@ -158,6 +169,7 @@ namespace Restaurante
                     ScriptManager.RegisterStartupScript(
                         this, GetType(), "showalert", "alert('No existe el mesero con esa identificación');", true);
                     txtNombreMesero.Text = "";
+                    txtMesero.Text = "";
                 }
             }
             else
@@ -165,6 +177,7 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript
                     (this, GetType(), "showalert", "alert('Hubo inconvenientes al buscar el mesero. Por favor intente de nuevo');", true);
                 txtNombreMesero.Text = "";
+                txtMesero.Text = "";
             }
         }
 
@@ -183,25 +196,54 @@ namespace Restaurante
 
             if (GridView1.Rows.Count > 0)
             {
-
-                var idcliente = Convert.ToInt32(txtCliente.Text);
-                var idmesa = Convert.ToInt32(dropMesa.SelectedValue);
-                var idmesero = Convert.ToInt32(txtMesero.Text);
-
-                CapaDatos.Entities entities = new Entities();
-
-                var cliente = entities.CLIENTE.FirstOrDefault(m => m.IDENTIFICACION == idcliente);
-                var mesa = entities.MESA.FirstOrDefault(m => m.NROMESA == idmesa);
-                var mesero = entities.MESERO.FirstOrDefault(m => m.IDMESERO == idmesero);
-
-                List<FACTURA> factura = new List<FACTURA>();
+                try
                 {
-                    new FACTURA { CLIENTE = cliente, MESA = mesa, MESERO = mesero, FECHA = DateTime.Now };
+
+                    if (!string.IsNullOrEmpty(txtCliente.Text.Trim()) && !string.IsNullOrEmpty(txtMesero.Text.Trim()))
+                    {
+                        var idcliente = Convert.ToInt32(txtCliente.Text);
+                        var idmesa = Convert.ToInt32(dropMesa.SelectedValue);
+                        var idmesero = Convert.ToInt32(txtMesero.Text);
+
+                        CapaDatos.Entities entities = new Entities();
+
+                        var cliente = entities.CLIENTE.FirstOrDefault(m => m.IDENTIFICACION == idcliente);
+                        var mesa = entities.MESA.FirstOrDefault(m => m.NROMESA == idmesa);
+                        var mesero = entities.MESERO.FirstOrDefault(m => m.IDMESERO == idmesero);
+
+
+                        entities.FACTURA.Add(new FACTURA { CLIENTE = cliente, MESA = mesa, MESERO = mesero, FECHA = DateTime.Now });
+                        entities.SaveChanges();
+                        decimal valor = 0;
+
+                        foreach (GridViewRow row in GridView1.Rows)
+                        {
+                            var factura = entities.FACTURA.OrderByDescending(p => p.NROFACTURA).FirstOrDefault();
+                            var supervisor = entities.SUPERVISOR.First();
+
+                            var idplato = Convert.ToInt32(row.Cells[0].Text);
+                            var plato = entities.PLATO.FirstOrDefault(m => m.IDPLATO == idplato);
+                            decimal.TryParse(row.Cells[2].Text, out valor);
+
+                            entities.DETALLEXFACTURA.Add(new DETALLEXFACTURA { FACTURA = factura, IDSUPERVISOR = 0, PLATO1 = plato, VALOR = valor });
+                        }
+                        entities.SaveChanges();
+                    }
+                    else
+                    {
+
+                        ScriptManager.RegisterStartupScript
+                        (this, GetType(), "showalert", "alert('Faltan rellenar datos');", true);
+                    }
+
+                    ScriptManager.RegisterStartupScript
+                            (this, GetType(), "showalert", "alert('¡DATOS GUARDADOS CON EXITO!');", true);
                 }
-
-                foreach (var item in GridView1.Rows)
+                catch (Exception)
                 {
 
+                    ScriptManager.RegisterStartupScript
+                    (this, GetType(), "showalert", "alert('Hubo inconvenientes al guardar, intente de nuevo');", true);
                 }
 
             }
@@ -211,5 +253,6 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript
                     (this, GetType(), "showalert", "alert('Nada para guardar');", true);
             }
+        }
     }
 }

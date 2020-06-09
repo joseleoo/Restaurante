@@ -108,4 +108,6 @@ insert into mesa (nombre,reservada,puestos) values ('uno','0','5')
 insert into mesa (NroMesa,nombre,reservada,puestos) values (0,'Seleccione','0','6')
 insert into plato (idplato,nombre,valor) values(0,'Seleccione',0) 
 
+insert into supervisor (idsupervisor, nombres,apellidos,antiguedad) values (0,'Joselito','Vaca Toro','8')
+
 
