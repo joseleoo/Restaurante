@@ -5,26 +5,26 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
-    <!--bootstrap-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <head runat="server">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Registrar Compra</title>
+        <!--bootstrap-->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <!--validations-->
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css" />
+        <!--validations-->
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+        <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css" />
+           <script src="http://malsup.github.io/jquery.blockUI.js" type="text/javascript"></script>
 
-
-    <script src="../media/js/site.js"></script>
-    <link rel="stylesheet" href="../media/css/site.css" />
-</head>
-<body>
+        <script src="Content/media/js/site.js"></script>
+        <link rel="stylesheet" href="Content/media/css/site.css" />
+    </head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
     <nav id="navbar" class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <a id="navbar" class="navbar-brand" href="#">Mapa del sitio</a>
@@ -33,14 +33,14 @@
                 <a class="nav-link" href="#newClient">Registrar Factura</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Meseros</a>
+                <a class="nav-link" href="Indicadores.aspx">Indicadores: Meseros</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Productos</a>
-            </li>
+            <!-- <li class="nav-item"> -->
+                <!-- <a class="nav-link" href="#location">Indicadores: Clientes</a> -->
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+                <!-- <a class="nav-link" href="#location">Indicadores: Productos</a> -->
+            <!-- </li> -->
 
         </ul>
     </nav>
@@ -55,7 +55,10 @@
                         </ul>
                         <br />
 
-
+                        <div class="alert alert-success" id="saveSucces"   role="alert">
+                            Nuevo: <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://ad6b27a539ec.ngrok.io/Indicadores">Vea las ventas de los meseros</asp:HyperLink>
+                            
+                            </div>
                         <ul id="newClient" class="list-group">
                             <li class="list-group-item active">
                                 <h1 class="display-5 text-center">Registrar Factura</h1>
@@ -68,7 +71,7 @@
 
                                         <div class="input-group-prepend adon">
 
-                                            <span class="input-group-text " id="labelIdcliente">Identficación del Cliente *</span>
+                                            <span class="input-group-text " id="labelIdcliente">Identificación del Cliente *</span>
                                         </div>
 
                                         <asp:TextBox ID="txtCliente" AutoPostBack="true" class="form-control"
@@ -96,7 +99,7 @@
 
 
                                     <div class="col input-group mb-3">
-                                        <div class="input-group-prepend">
+                                        <div class="input-group-prepend adon">
                                             <span class="input-group-text" id="labelIdMesero">Identificación del Mesero *</span>
                                         </div>
 
@@ -156,17 +159,21 @@
                                         <asp:DropDownList ID="dropMesa" class="form-control"  aria-label="Default" aria-describedby="lblMesa" data-toggle="tooltip" runat="server"></asp:DropDownList>
 
                                     </div>
+                             
+                                    </div>
+                                </div>
+									<div class="row">
                                     <div class="col input-group mb-3">
+									       <div class="col input-group mb-3">
                                         <br>
                                    
                                         <asp:Button ID="btnAdd" OnClick="Button1_Click" runat="server" class="btn btn-primary"
                                         Text="Añadir a la factura" />
                                            <asp:Button ID="btnBorrar" OnClick="btnBorrar_Click" runat="server" CausesValidation="false" class="btn btn-danger"
                                         Text="Reiniciar Compra" />
-                                    </div>
-                                </div>
-
-
+									</div>
+									</div>
+</div>
                                 <div class="row">
                                     <div class="col input-group mb-3">
                                         <%--<asp:GridView ID="GridView1" class="table table-dark" runat="server"></asp:GridView>--%>
@@ -179,24 +186,25 @@
                                             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" SortExpression="Cantidad" />
                                             <asp:BoundField DataField="Total" HeaderText="Total" SortExpression="Total" />
                                         </Columns>
-                                        <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
+                                        <EmptyDataTemplate>Agrege productos para iniciar una nueva venta</EmptyDataTemplate>
                                         <PagerStyle CssClass="bs-pagination" />
                                     </asp:GridView>
                                     <asp:HiddenField ID="HiddenField1" runat="server" />
                                     </div>
 
                                 </div>
-                    </div>
-
-                    <div class="row">
+								      <div class="row">
                         <div class="col">
                             <br>
                             
-      <asp:Button ID="btnSave" OnClick="btnSave_Click" runat="server" CausesValidation="false" class="btn btn-success"
+      <asp:Button ID="btnSave" OnClick="btnSave_Click" runat="server" CausesValidation="false" class="btn btn-dark"
                                         Text="Cerrar compra!" />
                         </div>
 
                     </div>
+                    </div>
+
+              
 
                     </li>
 

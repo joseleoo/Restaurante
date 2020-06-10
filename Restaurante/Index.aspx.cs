@@ -21,6 +21,8 @@ namespace Restaurante
         {
             if (!IsPostBack)
             {
+                //ScriptManager.RegisterStartupScript(
+                //        this, GetType(), "showalert", "alert('NUEVO: -Fix problem al cerrar compra. -Diseño. -Formulario de indicadores');", true);
                 using (Entities entities = new Entities())
                 {
                     var platosList = (from p in entities.PLATO
@@ -59,6 +61,8 @@ namespace Restaurante
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(
+                          this, GetType(), "ajax", "$(document).ajaxStart($.blockUI);", true);
             if (dropPlato.SelectedValue != "0" && dropMesa.SelectedValue != "0" && !string.IsNullOrEmpty(txtCliente.Text.Trim()) && !string.IsNullOrEmpty(txtMesero.Text.Trim()))
             {
 
@@ -67,10 +71,7 @@ namespace Restaurante
                 var plato = (from p in entities.PLATO
                              where p.IDPLATO == idPlato
                              select new { p.VALOR, p.NOMBRE, p.IDPLATO }).ToList();
-                //GridView1.DataSource = query;
-                //GridView1.DataBind();
-
-
+            
                 DataTable table = new DataTable("Productos");
 
                 table.Columns.Add(new DataColumn("idPlato"));
@@ -114,10 +115,12 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript(
                                         this, GetType(), "showalert", "alert('Faltan datos por selecionar: cantidad, mesero o plato');", true);
             }
+
         }
 
         protected void txtCliente_TextChanged(object sender, EventArgs e)
         {
+         
             var idCliente = 0;
             int.TryParse(txtCliente.Text, out idCliente);
             CapaDatos.Entities entities = new Entities();
@@ -188,11 +191,13 @@ namespace Restaurante
             dropMesa.SelectedValue = "0";
             GridView1.DataSource = null;
             GridView1.DataBind();
+            Session["Productos"] = null;
 
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+     
 
             if (GridView1.Rows.Count > 0)
             {
@@ -223,7 +228,7 @@ namespace Restaurante
 
                             var idplato = Convert.ToInt32(row.Cells[0].Text);
                             var plato = entities.PLATO.FirstOrDefault(m => m.IDPLATO == idplato);
-                            decimal.TryParse(row.Cells[2].Text, out valor);
+                            decimal.TryParse(row.Cells[4].Text, out valor);
 
                             entities.DETALLEXFACTURA.Add(new DETALLEXFACTURA { FACTURA = factura, IDSUPERVISOR = 0, PLATO1 = plato, VALOR = valor });
                         }
@@ -238,6 +243,7 @@ namespace Restaurante
 
                     ScriptManager.RegisterStartupScript
                             (this, GetType(), "showalert", "alert('¡DATOS GUARDADOS CON EXITO!');", true);
+                    limpiaControles();
                 }
                 catch (Exception)
                 {
@@ -253,6 +259,19 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript
                     (this, GetType(), "showalert", "alert('Nada para guardar');", true);
             }
+        }
+
+        private void limpiaControles() {
+            txtCantidad.Text = "";
+            dropPlato.SelectedValue = "0";
+            dropMesa.SelectedValue = "0";
+            Session["Productos"] = dtVenta;
+            GridView1.DataSource = null;
+            GridView1.DataBind();
+            txtCliente.Text = "";
+            txtNombreCliente.Text = "";
+            txtMesero.Text = "";
+            txtNombreMesero.Text = "";
         }
     }
 }
