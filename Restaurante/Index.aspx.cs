@@ -69,10 +69,7 @@ namespace Restaurante
                 var plato = (from p in entities.PLATO
                              where p.IDPLATO == idPlato
                              select new { p.VALOR, p.NOMBRE, p.IDPLATO }).ToList();
-                //GridView1.DataSource = query;
-                //GridView1.DataBind();
-
-
+            
                 DataTable table = new DataTable("Productos");
 
                 table.Columns.Add(new DataColumn("idPlato"));
@@ -226,7 +223,7 @@ namespace Restaurante
 
                             var idplato = Convert.ToInt32(row.Cells[0].Text);
                             var plato = entities.PLATO.FirstOrDefault(m => m.IDPLATO == idplato);
-                            decimal.TryParse(row.Cells[2].Text, out valor);
+                            decimal.TryParse(row.Cells[4].Text, out valor);
 
                             entities.DETALLEXFACTURA.Add(new DETALLEXFACTURA { FACTURA = factura, IDSUPERVISOR = 0, PLATO1 = plato, VALOR = valor });
                         }

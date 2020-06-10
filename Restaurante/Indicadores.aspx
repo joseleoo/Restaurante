@@ -51,15 +51,12 @@
 
 
             Fecha de inicio<asp:TextBox ID="txtFechaInicio" CssClass="form-control" runat="server"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ControlToValidate="txtFechaInicio" runat="server" ErrorMessage="Fecha requerida" CssClass="alert-danger" SetFocusOnError="True"></asp:RequiredFieldValidator>
+            <ajaxToolkit:CalendarExtender ID="txtFechaInicio_CalendarExtender" runat="server" TargetControlID="txtFechaInicio" DaysModeTitleFormat="dd, MMMM, yyyy" />
 
-            <ajaxToolkit:CalendarExtender ID="txtFechaInicio_CalendarExtender" runat="server" TargetControlID="txtFechaInicio" />
-
-            Fecha final<asp:TextBox ID="txtFechaFinal" CssClass="form-control" runat="server"></asp:TextBox>
+            Fecha final<asp:TextBox ID="txtFechaFinal" CssClass="form-control"  runat="server"></asp:TextBox>
             <ajaxToolkit:CalendarExtender ID="txtFechaFinal_CalendarExtender" runat="server" BehaviorID="txtFechaFinal_CalendarExtender" TargetControlID="txtFechaFinal" />
-
-
-
-            
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtFechaFinal" runat="server" ErrorMessage="Fecha requerida" SetFocusOnError="True"></asp:RequiredFieldValidator>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
@@ -69,20 +66,47 @@
                             </ul>
                             <br />
 
-
                             <ul id="newClient" class="list-group">
                                 <li class="list-group-item active">
-                                    <h1 class="display-5 text-center">Meseros con mas ventas</h1>
+                                    <h1 class="display-10 text-center">Meseros con mas ventas</h1>
                                     </li>
                                 <li class="list-group-item">
-                                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                                    <asp:GridView ID="GridView1"  runat="server">
+                                             <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
+                                    </asp:GridView>
 
-                                    <div class="row">
 
-                                    </div>
+                                 
                                 </li>
 
                             </ul>
+
+                            <ul id="ulCliente" class="list-group">
+                                <li class="list-group-item active">
+                                    <h1 class="display-10 text-center">Clientes con mas compras</h1>
+                                    </li>
+                                <li class="list-group-item">
+                                      <div class="row">
+                                          Consumo $
+                                          </div>
+                                     <div class="row">
+                                         <asp:TextBox ID="txtCantidad" runat="server"></asp:TextBox>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3txtCantidad" runat="server" ControlToValidate="txtCantidad"
+                                             Display="Dynamic" ErrorMessage="Consumo requerido"></asp:RequiredFieldValidator>
+                                          </div>
+                                    <asp:GridView ID="GridView2"  runat="server">
+                                             <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
+                                    </asp:GridView>
+
+
+                                
+                                </li>
+
+                            </ul>
+                               <div class="row">
+                                        <asp:Button ID="btnIndicadores" CssClass="btn-dark" OnClick="btnIndicadores_Click" runat="server" Text="Calcular indicadores" />
+
+                                    </div>
                         </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
