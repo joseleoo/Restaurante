@@ -19,7 +19,7 @@
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
         <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
         <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css" />
-
+           <script src="http://malsup.github.io/jquery.blockUI.js" type="text/javascript"></script>
 
         <script src="Content/media/js/site.js"></script>
         <link rel="stylesheet" href="Content/media/css/site.css" />
@@ -35,12 +35,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="Indicadores.aspx">Indicadores: Meseros</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Productos</a>
-            </li>
+            <!-- <li class="nav-item"> -->
+                <!-- <a class="nav-link" href="#location">Indicadores: Clientes</a> -->
+            <!-- </li> -->
+            <!-- <li class="nav-item"> -->
+                <!-- <a class="nav-link" href="#location">Indicadores: Productos</a> -->
+            <!-- </li> -->
 
         </ul>
     </nav>
@@ -186,7 +186,7 @@
                                             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" SortExpression="Cantidad" />
                                             <asp:BoundField DataField="Total" HeaderText="Total" SortExpression="Total" />
                                         </Columns>
-                                        <EmptyDataTemplate>No ha introducido ningun producto.</EmptyDataTemplate>
+                                        <EmptyDataTemplate>Agrege productos para iniciar una nueva venta</EmptyDataTemplate>
                                         <PagerStyle CssClass="bs-pagination" />
                                     </asp:GridView>
                                     <asp:HiddenField ID="HiddenField1" runat="server" />

@@ -61,6 +61,8 @@ namespace Restaurante
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(
+                          this, GetType(), "ajax", "$(document).ajaxStart($.blockUI);", true);
             if (dropPlato.SelectedValue != "0" && dropMesa.SelectedValue != "0" && !string.IsNullOrEmpty(txtCliente.Text.Trim()) && !string.IsNullOrEmpty(txtMesero.Text.Trim()))
             {
 
@@ -113,10 +115,12 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript(
                                         this, GetType(), "showalert", "alert('Faltan datos por selecionar: cantidad, mesero o plato');", true);
             }
+
         }
 
         protected void txtCliente_TextChanged(object sender, EventArgs e)
         {
+         
             var idCliente = 0;
             int.TryParse(txtCliente.Text, out idCliente);
             CapaDatos.Entities entities = new Entities();
@@ -193,6 +197,7 @@ namespace Restaurante
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+     
 
             if (GridView1.Rows.Count > 0)
             {
