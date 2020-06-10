@@ -107,6 +107,22 @@
                             </li>
 
                         </ul>
+                          <ul id="Productos" class="list-group">
+                            <li class="list-group-item active">
+                                <h1 class="display-10 text-center">Productos más solicitados</h1>
+                            </li>
+                            <li class="list-group-item">                             
+                            
+                                <asp:GridView ID="GridView3" runat="server">
+                                    <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
+                                </asp:GridView>
+
+
+
+                            </li>
+
+                        </ul>
+
                         <div class="row">
                             <asp:Button ID="btnIndicadores" CssClass="btn-dark" OnClick="btnIndicadores_Click" runat="server" Text="Calcular indicadores" />
 

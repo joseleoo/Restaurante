@@ -67,7 +67,6 @@
     <Compile Include="MESERO.cs">
       <DependentUpon>RestauranteModelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="MeseroxVenta.cs" />
     <Compile Include="PLATO.cs">
       <DependentUpon>RestauranteModelo.tt</DependentUpon>
     </Compile>
