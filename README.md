@@ -1,3 +1,2 @@
 # Restaurante
-Primero que todo correr el script 'export.sql' ubicado en la raiz de la carpeta. El archivo Restaurante/Index.aspx es el principal para correr la app.
-Tambien encuentras la hoja de vida actualizada en el archivo 'Curriculo1JLQ2020-2.pdf'.
+Acceder desde http://99ab9cc299d8.ngrok.io/Indicadores
