@@ -27,12 +27,12 @@ namespace Restaurante
                 
                     var meseroList = (from m in entities.MESERO
                                       join f in entities.FACTURA on m.IDMESERO equals f.IDMESERO into j
-                                      from  k in j.DefaultIfEmpty() 
-                                       //join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
-                                       //from detalle in detalles.DefaultIfEmpty()
-                                       //where k.FECHA >= FechaInicial && k.FECHA <= FechaFinal  
-                                     
-                                      select new { Ventas = k ==null ? 0 : k.NROFACTURA, m.NOMBRES, m.APELLIDOS }
+                                      from  k in j.DefaultIfEmpty()
+                                      join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
+                                      from detalle in detalles.DefaultIfEmpty()
+                                      //where k.FECHA >= FechaInicial && k.FECHA <= FechaFinal
+
+                                      select new { idFactura = k ==null ? 0 : k.NROFACTURA, m.NOMBRES, m.APELLIDOS ,Ventas=detalle==null?0:detalle.VALOR}
                                     
                                       ).ToList();
 
