@@ -1,7 +1,7 @@
 # Restaurante
 Acceder hoy desde http://99ab9cc299d8.ngrok.io/Indicadores
 
-#Archivos modificados en capa de Restaurante (Presentación)
+#Archivos creados en capa de Restaurante (Presentación)
 
 Restaurante/Restaurante/Indicadores.aspx.cs:
 https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Indicadores.aspx.cs
