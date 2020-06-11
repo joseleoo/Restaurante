@@ -32,7 +32,7 @@ namespace Restaurante
                                   from k in j.DefaultIfEmpty()
                                   join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
                                   from detalle in detalles.DefaultIfEmpty()
-                                  where k.FECHA >= FechaInicial && k.FECHA < FechaFinal
+                                  where ( k.FECHA >= FechaInicial && k.FECHA < FechaFinal) || (k.FECHA==null)
                                   group new { m, detalle } by new { m.NOMBRES, m.APELLIDOS } into g
                                  
                                   let ventas = g.Sum(m => m.detalle==null?0: m.detalle.VALOR)
@@ -82,7 +82,8 @@ namespace Restaurante
 
             GridView3.DataSource = platolist;
                 GridView3.DataBind();
-
+                ScriptManager.RegisterStartupScript(
+                                  this, GetType(), "showalert", "alert('listo');", true);
 
             }
 
@@ -92,6 +93,28 @@ namespace Restaurante
                 ScriptManager.RegisterStartupScript(
                                    this, GetType(), "showalert", "alert('" + ex.ToString() + "');", true);
             }
+        }
+
+        protected void GridView1_DataBound(object sender, EventArgs e)
+        {
+            var count = 0;
+            var valor = 0;
+            foreach (GridViewRow row in GridView1.Rows)
+            {
+
+                int.TryParse(row.Cells[1].Text, out valor);
+                count += valor;
+            }
+
+            if (count<1)
+            {
+                if (GridView1.DataSource!=null)
+                {
+                    GridView1.DataSource = null;
+                    GridView1.DataBind(); 
+                }
+            }
+
         }
     }
 }
