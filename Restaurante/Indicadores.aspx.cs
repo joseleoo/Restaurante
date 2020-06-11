@@ -1,6 +1,7 @@
 ﻿using CapaDatos;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,9 +21,9 @@ namespace Restaurante
 
             try
             {
-                DateTime FechaInicial = DateTime.Parse(txtFechaInicio.Text);
+                DateTime FechaInicial = DateTime.Parse(txtFechaInicio.Text, CultureInfo.InvariantCulture);
 
-                DateTime FechaFinal = DateTime.Parse(txtFechaFinal.Text);
+                DateTime FechaFinal = DateTime.Parse(txtFechaFinal.Text, CultureInfo.InvariantCulture);
                 Entities entities = new Entities();
 
                 var meseroList = (from m in entities.MESERO
@@ -30,9 +31,9 @@ namespace Restaurante
                                   from k in j.DefaultIfEmpty()
                                   join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
                                   from detalle in detalles.DefaultIfEmpty()
-                                 
+                                  where k.FECHA >= FechaInicial && k.FECHA <= FechaFinal
                                   group new { m, detalle } by new { m.NOMBRES, m.APELLIDOS } into g
-                                  //where k.FECHA >= FechaInicial && k.FECHA <= FechaFinal
+                                 
                                   let ventas = g.Sum(m => m.detalle==null?0: m.detalle.VALOR)
                                   let Mesero = g.Key.NOMBRES + " " + g.Key.APELLIDOS
                                   orderby ventas descending
@@ -52,8 +53,8 @@ namespace Restaurante
                 var clientelist = (from c in entities.CLIENTE
                                    join f in entities.FACTURA on c.IDENTIFICACION equals f.IDCLIENTE
                                    join d in entities.DETALLEXFACTURA on f.NROFACTURA equals d.NROFACTURA
-                                   //where f.FECHA >= FechaInicial && f.FECHA <= FechaFinal && d.VALOR >= consumo
-                                  
+                                   where f.FECHA >= FechaInicial && f.FECHA <= FechaFinal 
+
                                    group new { d,f, c} by new {  c.NOMBRES,c.APELLIDOS} into g
                                    let Compras = g.Sum(m =>  m.d.VALOR)
                                    let Cliente= g.Key.NOMBRES+" "+g.Key.APELLIDOS
@@ -68,17 +69,16 @@ namespace Restaurante
 
                 var platolist = (from plato in entities.PLATO
                                  join detalle in entities.DETALLEXFACTURA on plato.IDPLATO equals detalle.PLATO
-                                
+                                 join factura in entities.FACTURA on detalle.NROFACTURA equals factura.NROFACTURA
+                                 where factura.FECHA >= FechaInicial && factura.FECHA <= FechaFinal
                                  group new { detalle, plato } by new { plato.NOMBRE } into grupo
                                  let Valor = grupo.Sum(x => x.detalle.VALOR)
                                  let Cantidad = grupo.Sum(x => x.detalle.CANTIDAD)
-                                 orderby Valor descending
+                                 orderby Cantidad descending
                                  
                                  select new { Valor, Cantidad, grupo.Key.NOMBRE }).ToList();
 
 
-
-                //maxPro.InnerText = platolist.PLATO1.NOMBRE + " " + platolist.VALOR;
             GridView3.DataSource = platolist;
                 GridView3.DataBind();
 
