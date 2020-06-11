@@ -58,11 +58,11 @@
                     Fecha de inicio<asp:TextBox ID="txtFechaInicio" CssClass="form-control" runat="server"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ControlToValidate="txtFechaInicio" runat="server" ErrorMessage="Fecha requerida" CssClass="alert-danger" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     <ajaxToolkit:CalendarExtender ID="txtFechaInicio_CalendarExtender" runat="server" TargetControlID="txtFechaInicio" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
-                     <asp:RegularExpressionValidator CssClass="alert-danger" ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ControlToValidate="txtFechaInicio" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"></asp:RegularExpressionValidator>
+                     <asp:RegularExpressionValidator CssClass="alert-danger" ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ControlToValidate="txtFechaInicio" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$" SetFocusOnError="True"></asp:RegularExpressionValidator>
                 
 
                     Fecha final<asp:TextBox ID="txtFechaFinal" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RegularExpressionValidator  CssClass="alert-danger" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ControlToValidate="txtFechaFinal" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator  CssClass="alert-danger" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ControlToValidate="txtFechaFinal" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$" SetFocusOnError="True"></asp:RegularExpressionValidator>
                     <ajaxToolkit:CalendarExtender ID="txtFechaFinal_CalendarExtender" runat="server" BehaviorID="txtFechaFinal_CalendarExtender" TargetControlID="txtFechaFinal" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtFechaFinal" runat="server" ErrorMessage="Fecha requerida" SetFocusOnError="True"></asp:RequiredFieldValidator>
                 </div>
@@ -94,7 +94,7 @@
                                         <asp:TextBox ID="txtCantidad" CssClass="form-control" runat="server"></asp:TextBox>
                                         <ajaxToolkit:FilteredTextBoxExtender ID="txtCantidad_FilteredTextBoxExtender" runat="server" BehaviorID="txtCantidad_FilteredTextBoxExtender" FilterType="Numbers" TargetControlID="txtCantidad" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3txtCantidad" runat="server" ControlToValidate="txtCantidad"
-                                            Display="Dynamic" ErrorMessage="Consumo requerido"></asp:RequiredFieldValidator>
+                                            Display="Dynamic" ErrorMessage="Consumo requerido" CssClass="alert-danger" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
                                     <asp:GridView ID="GridView2" CssClass="table table-dark table-hover table-striped"  runat="server">
                                         <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
@@ -116,6 +116,7 @@
                                 </asp:GridView>
                                     </span>
     <div class="row">
+        <asp:ValidationSummary ID="ValidationSummary1" CssClass="alert-danger" DisplayMode="SingleParagraph" runat="server" />
                                 <asp:Button ID="btnIndicadores" CssClass="btn btn-dark" OnClick="btnIndicadores_Click" runat="server" Text="Calcular indicadores" />
 
                             </div>
