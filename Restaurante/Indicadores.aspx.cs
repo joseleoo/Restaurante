@@ -37,10 +37,8 @@ namespace Restaurante
                                   let Mesero = g.Key.NOMBRES + " " + g.Key.APELLIDOS
                                   orderby ventas descending
                                   select new { Mesero, Ventas = ventas }
-                                  //select new { g.Key ,g.Sum(x=>x.val)}
-
-
-                                      ).ToList();                                     
+                                 
+                                      ).ToList();                         
                                      
                                       
 
@@ -67,6 +65,22 @@ namespace Restaurante
 
                 GridView2.DataSource = clientelist;
                 GridView2.DataBind();
+
+                var platolist = (from plato in entities.PLATO
+                                 join detalle in entities.DETALLEXFACTURA on plato.IDPLATO equals detalle.PLATO
+                                
+                                 group new { detalle, plato } by new { plato.NOMBRE } into grupo
+                                 let Valor = grupo.Sum(x => x.detalle.VALOR)
+                                 let Cantidad = grupo.Sum(x => x.detalle.CANTIDAD)
+                                 orderby Valor descending
+                                 
+                                 select new { Valor, Cantidad, grupo.Key.NOMBRE }).ToList();
+
+
+
+                //maxPro.InnerText = platolist.PLATO1.NOMBRE + " " + platolist.VALOR;
+            GridView3.DataSource = platolist;
+                GridView3.DataBind();
 
                 ScriptManager.RegisterStartupScript(
                          this, GetType(), "showalert", "alert('listo');", true);

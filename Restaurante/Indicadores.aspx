@@ -112,11 +112,11 @@
                                 <h1 class="display-10 text-center">Productos más solicitados</h1>
                             </li>
                             <li class="list-group-item">                             
-                            
+                            <span id="maxPro" runat="server"></spa>
                                 <asp:GridView ID="GridView3" runat="server">
                                     <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
                                 </asp:GridView>
-
+</span>
 
 
                             </li>

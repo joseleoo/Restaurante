@@ -22,6 +22,7 @@ namespace CapaDatos
         public decimal NROMESA { get; set; }
         public string NOMBRE { get; set; }
         public Nullable<short> RESERVADA { get; set; }
+        public Nullable<decimal> PUESTOS { get; set; }
     
         public virtual ICollection<FACTURA> FACTURA { get; set; }
     }

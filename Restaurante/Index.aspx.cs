@@ -225,12 +225,13 @@ namespace Restaurante
                         {
                             var factura = entities.FACTURA.OrderByDescending(p => p.NROFACTURA).FirstOrDefault();
                             var supervisor = entities.SUPERVISOR.First();
+                            var cantidad = Convert.ToInt32(row.Cells[3].Text);
 
                             var idplato = Convert.ToInt32(row.Cells[0].Text);
                             var plato = entities.PLATO.FirstOrDefault(m => m.IDPLATO == idplato);
                             decimal.TryParse(row.Cells[4].Text, out valor);
 
-                            entities.DETALLEXFACTURA.Add(new DETALLEXFACTURA { FACTURA = factura, IDSUPERVISOR = 0, PLATO1 = plato, VALOR = valor });
+                            entities.DETALLEXFACTURA.Add(new DETALLEXFACTURA { CANTIDAD=cantidad, FACTURA = factura, IDSUPERVISOR = 0, PLATO1 = plato, VALOR = valor });
                         }
                         entities.SaveChanges();
                     }
@@ -265,7 +266,7 @@ namespace Restaurante
             txtCantidad.Text = "";
             dropPlato.SelectedValue = "0";
             dropMesa.SelectedValue = "0";
-            Session["Productos"] = dtVenta;
+            Session["Productos"] = null;
             GridView1.DataSource = null;
             GridView1.DataBind();
             txtCliente.Text = "";

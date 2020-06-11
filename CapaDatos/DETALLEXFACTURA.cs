@@ -19,6 +19,7 @@ namespace CapaDatos
         public decimal IDSUPERVISOR { get; set; }
         public decimal PLATO { get; set; }
         public decimal VALOR { get; set; }
+        public Nullable<decimal> CANTIDAD { get; set; }
     
         public virtual FACTURA FACTURA { get; set; }
         public virtual PLATO PLATO1 { get; set; }

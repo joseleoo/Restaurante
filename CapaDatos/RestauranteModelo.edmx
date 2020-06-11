@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RestauranteModelo.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RestauranteModelo.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="IDENTIFICACION" />
@@ -24,6 +24,7 @@
           <Property Name="IDSUPERVISOR" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="PLATO" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="VALOR" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CANTIDAD" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -42,6 +43,7 @@
           <Property Name="NROMESA" Type="number" Precision="38" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOMBRE" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="RESERVADA" Type="number" Precision="1" Scale="0" />
+          <Property Name="PUESTOS" Type="number" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="MESERO">
           <Key>
@@ -175,8 +177,7 @@
             <End Role="DETALLEXFACTURA" EntitySet="DETALLEXFACTURA" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RestauranteModelo" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -203,6 +204,7 @@
           <NavigationProperty Name="FACTURA" Relationship="Self.FACTURA_FK" FromRole="DETALLEXFACTURA" ToRole="FACTURA" />
           <NavigationProperty Name="PLATO1" Relationship="Self.PLATO_FK" FromRole="DETALLEXFACTURA" ToRole="PLATO" />
           <NavigationProperty Name="SUPERVISOR" Relationship="Self.SUPERVISOR_FK" FromRole="DETALLEXFACTURA" ToRole="SUPERVISOR" />
+          <Property Name="CANTIDAD" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -226,6 +228,7 @@
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RESERVADA" Type="Int16" />
           <NavigationProperty Name="FACTURA" Relationship="Self.MESA_FK" FromRole="MESA" ToRole="FACTURA" />
+          <Property Name="PUESTOS" Type="Decimal" Precision="38" Scale="0" />
         </EntityType>
         <EntityType Name="MESERO">
           <Key>
@@ -382,6 +385,7 @@
           <EntitySetMapping Name="DETALLEXFACTURA">
             <EntityTypeMapping TypeName="RestauranteModelo.DETALLEXFACTURA">
               <MappingFragment StoreEntitySet="DETALLEXFACTURA">
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
                 <ScalarProperty Name="IDDETALLEXFACTURA" ColumnName="IDDETALLEXFACTURA" />
                 <ScalarProperty Name="NROFACTURA" ColumnName="NROFACTURA" />
                 <ScalarProperty Name="IDSUPERVISOR" ColumnName="IDSUPERVISOR" />
@@ -404,6 +408,7 @@
           <EntitySetMapping Name="MESA">
             <EntityTypeMapping TypeName="RestauranteModelo.MESA">
               <MappingFragment StoreEntitySet="MESA">
+                <ScalarProperty Name="PUESTOS" ColumnName="PUESTOS" />
                 <ScalarProperty Name="NROMESA" ColumnName="NROMESA" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="RESERVADA" ColumnName="RESERVADA" />
