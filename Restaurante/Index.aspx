@@ -53,12 +53,7 @@
                     <div id="jumppal">
                         <ul id="location" class="list-group">
                         </ul>
-                        <br />
-
-                        <div class="alert alert-success" id="saveSucces"   role="alert">
-                            Nuevo: <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="https://ad6b27a539ec.ngrok.io/Indicadores">Vea las ventas de los meseros</asp:HyperLink>
-                            
-                            </div>
+                        <br />                      
                         <ul id="newClient" class="list-group">
                             <li class="list-group-item active">
                                 <h1 class="display-5 text-center">Registrar Factura</h1>
@@ -169,27 +164,27 @@
                                    
                                         <asp:Button ID="btnAdd" OnClick="Button1_Click" runat="server" class="btn btn-primary"
                                         Text="Añadir a la factura" />
-                                           <asp:Button ID="btnBorrar" OnClick="btnBorrar_Click" runat="server" CausesValidation="false" class="btn btn-danger"
+                                           <asp:Button ID="btnBorrar" OnClick="btnBorrar_Click" runat="server" CausesValidation="false" class="btn btn-light"
                                         Text="Reiniciar Compra" />
 									</div>
 									</div>
 </div>
                                 <div class="row">
                                     <div class="col input-group mb-3">
-                                        <%--<asp:GridView ID="GridView1" class="table table-dark" runat="server"></asp:GridView>--%>
+                                       
                                    
-                                             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CssClass="table table-hover table-striped"  GridLines="None" AllowSorting="True" AllowPaging="True" >
+                                             <asp:GridView ID="GridView1"  AutoGenerateColumns="false"   runat="server" class="table table-dark">
                                         <Columns>                                            
-                                            <asp:BoundField DataField="idPlato" HeaderText="idPlato" SortExpression="idPlato" />
+                                            <asp:BoundField DataField="idPlato" HeaderText="ID" SortExpression="idPlato" />
                                             <asp:BoundField DataField="Plato" HeaderText="Plato" SortExpression="Plato" />
                                             <asp:BoundField DataField="Valor" HeaderText="Valor" SortExpression="Valor" />
                                             <asp:BoundField DataField="Cantidad" HeaderText="Cantidad" SortExpression="Cantidad" />
                                             <asp:BoundField DataField="Total" HeaderText="Total" SortExpression="Total" />
                                         </Columns>
                                         <EmptyDataTemplate>Agrege productos para iniciar una nueva venta</EmptyDataTemplate>
-                                        <PagerStyle CssClass="bs-pagination" />
+                              
                                     </asp:GridView>
-                                    <asp:HiddenField ID="HiddenField1" runat="server" />
+                                
                                     </div>
 
                                 </div>
@@ -198,7 +193,7 @@
                             <br>
                             
       <asp:Button ID="btnSave" OnClick="btnSave_Click" runat="server" CausesValidation="false" class="btn btn-dark"
-                                        Text="Cerrar compra!" />
+                                        Text="Enviar compra!" />
                         </div>
 
                     </div>

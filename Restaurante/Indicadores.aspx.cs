@@ -1,6 +1,7 @@
 ﻿using CapaDatos;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -20,58 +21,69 @@ namespace Restaurante
 
             try
             {
-                DateTime FechaInicial = DateTime.Parse(txtFechaInicio.Text);
+                DateTime FechaInicial = DateTime.Parse(txtFechaInicio.Text, CultureInfo.InvariantCulture);
 
-                DateTime FechaFinal = DateTime.Parse(txtFechaFinal.Text);
+                DateTime FechaFinal = DateTime.Parse(txtFechaFinal.Text, CultureInfo.InvariantCulture);
+                FechaFinal = FechaFinal.AddDays(1);
                 Entities entities = new Entities();
-                
-                    var meseroList = (from m in entities.MESERO
-                                      join f in entities.FACTURA on m.IDMESERO equals f.IDMESERO into j
-                                      from  k in j.DefaultIfEmpty()
-                                      join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
-                                      from detalle in detalles.DefaultIfEmpty()
-                                      //where k.FECHA >= FechaInicial && k.FECHA <= FechaFinal
 
-                                      select new { idFactura = k ==null ? 0 : k.NROFACTURA, m.NOMBRES, m.APELLIDOS ,Ventas=detalle==null?0:detalle.VALOR}
-                                    
-                                      ).ToList();
-
-                //var group = (from mesero in meseroList
-                //             group mesero by mesero.NOMBRES into meserosGrupo
-                //             select new
-                //             {
-                          
-                //             }
-
-
-                    GridView1.DataSource = meseroList;
-                    GridView1.DataBind();
-
-                    //    ScriptManager.RegisterStartupScript(
-                    //             this, GetType(), "showalert", "alert('listo');", true);
-                    //}
-                    var consumo = decimal.Parse(txtCantidad.Text);
-                    
-                    var clientelist = (from m in entities.CLIENTE 
-                                       join f in entities.FACTURA on m.IDENTIFICACION equals f.IDCLIENTE
-                                
-                                       join d in entities.DETALLEXFACTURA on f.NROFACTURA equals d.NROFACTURA
-                                       where f.FECHA >= FechaInicial && f.FECHA <= FechaFinal && d.VALOR>= consumo
+                var meseroList = (from m in entities.MESERO
+                                  join f in entities.FACTURA on m.IDMESERO equals f.IDMESERO into j
+                                  from k in j.DefaultIfEmpty()
+                                  join d in entities.DETALLEXFACTURA on k.NROFACTURA equals d.NROFACTURA into detalles
+                                  from detalle in detalles.DefaultIfEmpty()
+                                  where k.FECHA >= FechaInicial && k.FECHA < FechaFinal
+                                  group new { m, detalle } by new { m.NOMBRES, m.APELLIDOS } into g
+                                 
+                                  let ventas = g.Sum(m => m.detalle==null?0: m.detalle.VALOR)
+                                  let Mesero = g.Key.NOMBRES + " " + g.Key.APELLIDOS
+                                  orderby ventas descending
+                                  select new { Mesero, Ventas = ventas }
+                                 
+                                      ).ToList();                         
+                                     
+                                      
 
 
-                                       select new { m.IDENTIFICACION, d.NROFACTURA, m.NOMBRES, m.APELLIDOS , d.VALOR}
 
-                                      ).ToList();
+                GridView1.DataSource = meseroList;
+                GridView1.DataBind();
+          
+                var consumo = decimal.Parse(txtCantidad.Text);
 
-                    var another = (from cliente in clientelist
-                                   group cliente by cliente.IDENTIFICACION);
+                var clientelist = (from c in entities.CLIENTE
+                                   join f in entities.FACTURA on c.IDENTIFICACION equals f.IDCLIENTE
+                                   join d in entities.DETALLEXFACTURA on f.NROFACTURA equals d.NROFACTURA
+                                   where f.FECHA >= FechaInicial && f.FECHA < FechaFinal 
 
-                    GridView2.DataSource = clientelist;
-                    GridView2.DataBind();
+                                   group new { d,f, c} by new {  c.NOMBRES,c.APELLIDOS} into g
+                                   let Compras = g.Sum(m =>  m.d.VALOR)
+                                   let Cliente= g.Key.NOMBRES+" "+g.Key.APELLIDOS
+                                   where Compras >= consumo
+                                   select new {Cliente, Compras }
 
-                    ScriptManager.RegisterStartupScript(
-                             this, GetType(), "showalert", "alert('listo');", true);
-                
+                                  ).ToList();
+
+
+                GridView2.DataSource = clientelist;
+                GridView2.DataBind();
+
+                var platolist = (from plato in entities.PLATO
+                                 join detalle in entities.DETALLEXFACTURA on plato.IDPLATO equals detalle.PLATO
+                                 join factura in entities.FACTURA on detalle.NROFACTURA equals factura.NROFACTURA
+                                 where factura.FECHA >= FechaInicial && factura.FECHA < FechaFinal
+                                 group new { detalle, plato } by new { plato.NOMBRE } into grupo
+                                 let Valor = grupo.Sum(x => x.detalle.VALOR)
+                                 let Cantidad = grupo.Sum(x => x.detalle.CANTIDAD)
+                                 orderby Cantidad descending
+                                 
+                                 select new { Valor, Cantidad, grupo.Key.NOMBRE }).ToList();
+
+
+            GridView3.DataSource = platolist;
+                GridView3.DataBind();
+
+
             }
 
             catch (Exception ex)
