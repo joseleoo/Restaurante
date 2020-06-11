@@ -17,3 +17,6 @@ https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Index.aspx
 
 #Los demás están en la capa de datos 
 https://github.com/joseleoo/Restaurante/tree/master/CapaDatos
+
+#Script de base de datos
+https://github.com/joseleoo/Restaurante/blob/master/export.sql
