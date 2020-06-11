@@ -6,8 +6,14 @@ Acceder hoy desde http://99ab9cc299d8.ngrok.io/Indicadores
 Restaurante/Restaurante/Index.aspx.cs:
 https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Indicadores.aspx.cs
 
-Restaurante/Restaurante/Index.aspx:
+Restaurante/Restaurante/Indicadores.aspx:
 https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Indicadores.aspx
+
+Restaurante/Restaurante/Index.aspx.cs:
+https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Index.aspx.cs
+
+Restaurante/Restaurante/Index.aspx:
+https://github.com/joseleoo/Restaurante/blob/master/Restaurante/Index.aspx
 
 #Los demás están en la capa de datos 
 https://github.com/joseleoo/Restaurante/tree/master/CapaDatos
