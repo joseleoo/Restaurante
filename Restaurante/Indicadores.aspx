@@ -19,35 +19,7 @@
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css" />
     <script type="text/javascript" src="../Scripts/jquery.blockUI.js"></script>
     <script type="text/javascript" src="../Scripts/General.js"></script>
-    <style>
-        div.blockOverlay {
-            background-color: #666;
-            filter: alpha(opacity=50) !important;
-            -moz-opacity: .50;
-            opacity: .50;
-            z-index: 200000 !important;
-        }
-
-        div.blockPage {
-            z-index: 200001 !important;
-            position: fixed;
-            padding: 10px;
-            margin: -38px 0 0 -45px;
-            width: 70px;
-            height: 56px;
-            top: 50%;
-            left: 50%;
-            text-align: center;
-            cursor: wait;
-            background: url(ajax-loader.gif) center 30px no-repeat #fff;
-            border-radius: 5px;
-            color: #666;
-            box-shadow: 0 0 25px rgba(0,0,0,.75);
-            font-weight: bold;
-            font-size: 15px;
-            border: 1px solid #ccc;
-        }
-    </style>
+  
   
     <script src="Content/media/js/site.js"></script>
     <link rel="stylesheet" href="Content/media/css/site.css" />
@@ -62,12 +34,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#Meseros">Indicadores: Meseros</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#Clientes">Indicadores: Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#location">Indicadores: Productos</a>
-            </li>
+
 
         </ul>
     </nav>
@@ -77,18 +44,7 @@
         <div>
            
 
-            <div class="row">
-                <div class="col input-group mb-3">
-                    Fecha de inicio<asp:TextBox ID="txtFechaInicio" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ControlToValidate="txtFechaInicio" runat="server" ErrorMessage="Fecha requerida" CssClass="alert-danger" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                    <ajaxToolkit:CalendarExtender ID="txtFechaInicio_CalendarExtender" runat="server" TargetControlID="txtFechaInicio" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
-
-
-                    Fecha final<asp:TextBox ID="txtFechaFinal" CssClass="form-control" runat="server"></asp:TextBox>
-                    <ajaxToolkit:CalendarExtender ID="txtFechaFinal_CalendarExtender" runat="server" BehaviorID="txtFechaFinal_CalendarExtender" TargetControlID="txtFechaFinal" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtFechaFinal" runat="server" ErrorMessage="Fecha requerida" SetFocusOnError="True"></asp:RequiredFieldValidator>
-                </div>
-            </div>
+           
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
 
@@ -97,13 +53,26 @@
                             <ul id="" class="list-group">
                             </ul>
                             <br />
+                             <div class="row">
+                <div class="col input-group mb-3">
+                    Fecha de inicio<asp:TextBox ID="txtFechaInicio" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ControlToValidate="txtFechaInicio" runat="server" ErrorMessage="Fecha requerida" CssClass="alert-danger" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    <ajaxToolkit:CalendarExtender ID="txtFechaInicio_CalendarExtender" runat="server" TargetControlID="txtFechaInicio" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
+                     <asp:RegularExpressionValidator CssClass="alert-danger" ID="RegularExpressionValidator2" runat="server" Display="Dynamic" ControlToValidate="txtFechaInicio" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"></asp:RegularExpressionValidator>
+                
 
+                    Fecha final<asp:TextBox ID="txtFechaFinal" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:RegularExpressionValidator  CssClass="alert-danger" ID="RegularExpressionValidator1" Display="Dynamic" runat="server" ControlToValidate="txtFechaFinal" ErrorMessage="pon una fecha valida" ValidationExpression="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"></asp:RegularExpressionValidator>
+                    <ajaxToolkit:CalendarExtender ID="txtFechaFinal_CalendarExtender" runat="server" BehaviorID="txtFechaFinal_CalendarExtender" TargetControlID="txtFechaFinal" DaysModeTitleFormat="MM/dd/yyyy" Format="MM/dd/yyyy" TodaysDateFormat="MM/dd/yyyy" />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" CssClass="alert-danger" ControlToValidate="txtFechaFinal" runat="server" ErrorMessage="Fecha requerida" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                </div>
+            </div>
                             <ul id="Meseros" class="list-group">
                                 <li class="list-group-item active">
                                     <h1 class="display-10 text-center">Meseros con mas ventas</h1>
                                 </li>
                                 <li class="list-group-item">
-                                    <asp:GridView ID="GridView1" runat="server">
+                                    <asp:GridView ID="GridView1"  CssClass="table table-dark table-hover table-striped"  runat="server">
                                         <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
                                     </asp:GridView>
 
@@ -127,7 +96,7 @@
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3txtCantidad" runat="server" ControlToValidate="txtCantidad"
                                             Display="Dynamic" ErrorMessage="Consumo requerido"></asp:RequiredFieldValidator>
                                     </div>
-                                    <asp:GridView ID="GridView2" runat="server">
+                                    <asp:GridView ID="GridView2" CssClass="table table-dark table-hover table-striped"  runat="server">
                                         <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
                                     </asp:GridView>
 
@@ -142,20 +111,20 @@
                                 </li>
                                 <li class="list-group-item">
                                     <span id="maxPro" runat="server"></spa>
-                                <asp:GridView ID="GridView3" runat="server">
+                                <asp:GridView ID="GridView3"  CssClass="table table-dark table-hover table-striped"  runat="server">
                                     <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
                                 </asp:GridView>
                                     </span>
+    <div class="row">
+                                <asp:Button ID="btnIndicadores" CssClass="btn btn-dark" OnClick="btnIndicadores_Click" runat="server" Text="Calcular indicadores" />
 
+                            </div>
 
                                 </li>
 
                             </ul>
 
-                            <div class="row">
-                                <asp:Button ID="btnIndicadores" CssClass="btn-dark" OnClick="btnIndicadores_Click" runat="server" Text="Calcular indicadores" />
-
-                            </div>
+                        
                         </div>
                 </ContentTemplate>
             </asp:UpdatePanel>

@@ -21,8 +21,8 @@ namespace Restaurante
         {
             if (!IsPostBack)
             {
-                //ScriptManager.RegisterStartupScript(
-                //        this, GetType(), "showalert", "alert('NUEVO: -Fix problem al cerrar compra. -Diseño. -Formulario de indicadores');", true);
+                Session["Productos"] = null;
+
                 using (Entities entities = new Entities())
                 {
                     var platosList = (from p in entities.PLATO
