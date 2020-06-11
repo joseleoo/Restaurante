@@ -177,6 +177,15 @@ namespace Restaurante
         protected global::System.Web.UI.WebControls.GridView GridView3;
 
         /// <summary>
+        /// Control ValidationSummary1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+
+        /// <summary>
         /// Control btnIndicadores.
         /// </summary>
         /// <remarks>

@@ -73,7 +73,7 @@
                                             placeholder="Escriba aquí la cedula de cliente " 
                                           aria-describedby="labelIdcliente" data-toggle="tooltip" runat="server" OnTextChanged="txtCliente_TextChanged">
                                         </asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1txtCliente" ControlToValidate="txtCliente"
+                                        <asp:RequiredFieldValidator SetFocusOnError="True" ID="RequiredFieldValidator1txtCliente" ControlToValidate="txtCliente"
                                            CssClass="alert-danger" Display="Dynamic" runat="server" ErrorMessage="Cliente requerido"></asp:RequiredFieldValidator>
                                         <ajaxToolkit:FilteredTextBoxExtender ID="txtCliente_FilteredTextBoxExtender" runat="server" BehaviorID="txtCliente_FilteredTextBoxExtender" FilterType="Numbers" TargetControlID="txtCliente"></ajaxToolkit:FilteredTextBoxExtender>
 
@@ -100,7 +100,7 @@
 
                                         <asp:TextBox ID="txtMesero" MaxLength="50" class="form-control" AutoPostBack="true" OnTextChanged="txtMesero_TextChanged"
                                             placeholder="Escriba aquí la identificación del mesero" data-toggle="tooltip" runat="server"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_txtMesero" ControlToValidate="txtMesero" runat="server"  CssClass="alert-danger"
+                                        <asp:RequiredFieldValidator SetFocusOnError="True" ID="RequiredFieldValidator_txtMesero" ControlToValidate="txtMesero" runat="server"  CssClass="alert-danger"
                                             ErrorMessage="Escriba aquí la identificación del mesero" Display="Dynamic" ToolTip="Escriba aquí la identificación del mesero"></asp:RequiredFieldValidator>
                                         <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1txtMesero" TargetControlID="txtMesero" FilterType="Numbers" runat="server" />
                                     </div>
@@ -143,7 +143,7 @@
                                             MaxLength="50"
                                             aria-label="Default" aria-describedby="lblCantidad" data-toggle="tooltip" runat="server"></asp:TextBox>
                                     </div>
-                                    <asp:RequiredFieldValidator CssClass="alert-danger" ID="RequiredFieldValidator1txtCantidad" Display="Dynamic"
+                                    <asp:RequiredFieldValidator SetFocusOnError="True" CssClass="alert-danger" ID="RequiredFieldValidator1txtCantidad" Display="Dynamic"
                                         ControlToValidate="txtCantidad" runat="server" ErrorMessage="Cantidad requerida"></asp:RequiredFieldValidator>
                                     <ajaxToolkit:FilteredTextBoxExtender ID="FilteredTextBoxExtender1txtCantidad" TargetControlID="txtCantidad" FilterType="Numbers" runat="server" />
 
@@ -191,7 +191,7 @@
 								      <div class="row">
                         <div class="col">
                             <br>
-                            
+                             <asp:ValidationSummary ID="ValidationSummary1" CssClass="alert-danger" DisplayMode="SingleParagraph" runat="server" />
       <asp:Button ID="btnSave" OnClick="btnSave_Click" runat="server" CausesValidation="false" class="btn btn-dark"
                                         Text="Enviar compra!" />
                         </div>
