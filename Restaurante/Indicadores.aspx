@@ -72,7 +72,7 @@
                                     <h1 class="display-10 text-center">Meseros con mas ventas</h1>
                                 </li>
                                 <li class="list-group-item">
-                                    <asp:GridView ID="GridView1"  CssClass="table table-dark table-hover table-striped"  runat="server">
+                                    <asp:GridView ID="GridView1"  CssClass="table table-dark table-hover table-striped"  runat="server" OnDataBound="GridView1_DataBound">
                                         <EmptyDataTemplate>No existen registros.</EmptyDataTemplate>
                                     </asp:GridView>
 
